@@ -1,1 +1,31 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Modern responsive digital clock"><title>ChronoX — Digital Clock</title><link rel="stylesheet" href="css/style.css"></head><body><main class="app"><header><div><small>DIGITAL CLOCK</small><h1>ChronoX</h1></div><button id="theme" aria-label="Toggle theme">☀</button></header><section class="clock"><div class="status">● LIVE <span id="zone">Local Time</span></div><div class="time-row"><div id="time">00:00:00</div><b id="ampm"></b></div><p id="date">Loading date...</p><div class="controls"><button id="format">24-HOUR</button><button id="seconds">SECONDS: ON</button></div></section><section class="cards"><article><small>DAY</small><strong id="day">—</strong></article><article><small>DATE</small><strong id="shortDate">—</strong></article><article><small>TIME ZONE</small><strong id="tz">—</strong></article></section><footer>Built with HTML • CSS • JavaScript</footer></main><script src="js/app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KANHA X Digital Clock">
+<title>KANHA X — Digital Clock</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+<header class="header">
+<div><span class="eyebrow">DIGITAL CLOCK</span><h1>KANHA X</h1></div>
+<button id="theme" class="theme-btn" aria-label="Toggle theme">☀</button>
+</header>
+<section class="clock-card">
+<div class="clock-top"><div class="live"><span class="dot"></span> LIVE</div><div class="local">Local Time</div></div>
+<div class="time-row"><div id="time">00:00:00</div><span id="ampm">AM</span></div>
+<div id="date" class="date">Loading date...</div>
+<div class="controls"><button id="format">24-HOUR</button><button id="seconds">SECONDS: ON</button></div>
+</section>
+<section class="cards">
+<article><span>DAY</span><strong id="day">—</strong></article>
+<article><span>DATE</span><strong id="shortDate">—</strong></article>
+<article><span>TIME ZONE</span><strong id="tz">—</strong></article>
+</section>
+<footer>CREATED BY ER. KANHAIYA KR</footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
