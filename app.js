@@ -1,1 +1,86 @@
-const $=id=>document.getElementById(id);let h24=localStorage.getItem("clock24h")!=="false",sec=localStorage.getItem("clockSeconds")!=="false";function pad(n){return String(n).padStart(2,"0")}function update(){const d=new Date();let h=d.getHours();const m=pad(d.getMinutes()),s=pad(d.getSeconds());if(h24){$("time").textContent=`${pad(h)}:${m}${sec?":"+s:""}`;$("ampm").textContent=""}else{const ap=h>=12?"PM":"AM";h=h%12||12;$("time").textContent=`${pad(h)}:${m}${sec?":"+s:""}`;$("ampm").textContent=ap}$("date").textContent=new Intl.DateTimeFormat(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(d);$("day").textContent=new Intl.DateTimeFormat(undefined,{weekday:"long"}).format(d);$("shortDate").textContent=new Intl.DateTimeFormat(undefined,{day:"2-digit",month:"2-digit",year:"numeric"}).format(d);const z=Intl.DateTimeFormat().resolvedOptions().timeZone||"Local";$("tz").textContent=z.split("/").pop().replaceAll("_"," ");$("zone").textContent=z;$("format").textContent=h24?"24-HOUR":"12-HOUR";$("seconds").textContent=`SECONDS: ${sec?"ON":"OFF"}`}$("format").onclick=()=>{h24=!h24;localStorage.setItem("clock24h",h24);update()};$("seconds").onclick=()=>{sec=!sec;localStorage.setItem("clockSeconds",sec);update()};$("theme").onclick=()=>{document.body.classList.toggle("light");localStorage.setItem("clockTheme",document.body.classList.contains("light")?"light":"dark");$("theme").textContent=document.body.classList.contains("light")?"☾":"☀"};if(localStorage.getItem("clockTheme")==="light"){document.body.classList.add("light");$("theme").textContent="☾"}update();setInterval(update,1000);
+(() => {
+    "use strict";
+
+    const timeEl = document.getElementById("time");
+    const ampmEl = document.getElementById("ampm");
+    const dateEl = document.getElementById("date");
+    const dayEl = document.getElementById("day");
+    const shortDateEl = document.getElementById("shortDate");
+    const tzEl = document.getElementById("tz");
+    const themeBtn = document.getElementById("theme");
+
+    function updateClock() {
+        const now = new Date();
+
+        let hours = now.getHours();
+
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+
+        const ampm = hours >= 12 ? "PM" : "AM";
+
+        hours = hours % 12;
+        hours = hours || 12;
+        hours = String(hours).padStart(2, "0");
+
+        if (timeEl) {
+            timeEl.textContent = ${hours}:${minutes}:${seconds};
+        }
+
+        if (ampmEl) {
+            ampmEl.textContent = ampm;
+        }
+
+        if (dateEl) {
+            dateEl.textContent = now.toLocaleDateString("en-IN", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+        }
+
+        if (dayEl) {
+            dayEl.textContent = now.toLocaleDateString("en-IN", {
+                weekday: "long"
+            });
+        }
+
+        if (shortDateEl) {
+            shortDateEl.textContent = now.toLocaleDateString("en-IN");
+        }
+
+        if (tzEl) {
+            tzEl.textContent =
+                Intl.DateTimeFormat().resolvedOptions().timeZone;
+        }
+    }
+
+    // Theme
+    const savedTheme = localStorage.getItem("clock-theme");
+
+    if (savedTheme) {
+        document.documentElement.dataset.theme = savedTheme;
+    }
+
+    if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+
+            const current =
+                document.documentElement.dataset.theme || "dark";
+
+            const next = current === "dark" ? "light" : "dark";
+
+            document.documentElement.dataset.theme = next;
+
+            localStorage.setItem("clock-theme", next);
+        });
+    }
+
+    // Start clock
+    updateClock();
+
+    // Update every second
+    setInterval(updateClock, 1000);
+
+})();
